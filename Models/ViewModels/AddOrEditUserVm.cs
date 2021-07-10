@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Library.Model.ViewModels
+namespace Library.Models.ViewModels
 {
-    public class ReservationBookVm
+    public class AddOrEditUserVm
     {
-        public int? Id { get; set; }
+      
     }
 }

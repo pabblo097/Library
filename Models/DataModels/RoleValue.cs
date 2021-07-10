@@ -1,4 +1,4 @@
-﻿namespace Library.Model.DataModels
+﻿namespace Library.Models.DataModels
 {
     public enum RoleValue
     {

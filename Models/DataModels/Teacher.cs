@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Library.Model.DataModels
+namespace Library.Models.DataModels
 {
-    public class Student: User
+    public class Teacher: User
     {
 
         public virtual IList<Book> Books { get; set; }
+
+        public string Title { get; set; }
+
     }
 }
-

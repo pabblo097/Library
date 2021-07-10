@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Library.Model.DataModels
+namespace Library.Models.DataModels
 {
     public class User: IdentityUser<int>
     {

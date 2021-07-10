@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Library.Model.DataModels
+namespace Library.Models.ViewModels
 {
-    public class DamianToPedau
+    public class RentBookVm
     {
-        public string Gowno { get; set; }
+        public int? Id { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
-namespace Library.Model.ViewModels
+namespace Library.Models.ViewModels
 {
     public class RegisterNewUserVm
     {

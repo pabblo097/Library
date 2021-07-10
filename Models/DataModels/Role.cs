@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Identity;
 
-namespace Library.Model.DataModels
+namespace Library.Models.DataModels
 {
     public class Role : IdentityRole<int>
     {
