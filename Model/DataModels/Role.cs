@@ -9,7 +9,7 @@ namespace Library.Model.DataModels
         public Role()
         {
              
-        }
+        } 
         public Role(string name, RoleValue roleValue)
         {
             this.RoleValue = roleValue;
