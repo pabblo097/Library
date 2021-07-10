@@ -7,8 +7,8 @@ namespace Library.Models.DataModels
 {
     public class Reader: User
     {
- 
+
         public virtual IList<Book> Books { get; set; }
 
-    }
+    }       
 }
