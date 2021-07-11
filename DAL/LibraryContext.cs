@@ -1,25 +1,28 @@
-using Library.Models;
-using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
+using Library.Models.DataModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library.DAL
 {
-public class LibraryContext: DbContext
-{
+    public class LibraryContext: DbContext
+    {
+        public LibraryContext(DbContextOptions<LibraryContext> options) : base(options)
+        {
+        }
 
-public LibraryContext(): base("Library")
-{
-}
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Reader> Readers { get; set; }
 
-public DbSet<Author> Authors { get; set; }
-public DbSet<Reader> Readers { get; set; }
-public DbSet<Student> Students { get; set; }
-public DbSet<Teacher> Teachers { get; set; }
-public DbSet<Book> Books { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Author>().ToTable("Author");
+            modelBuilder.Entity<Teacher>().ToTable("Teacher");
+            modelBuilder.Entity<Student>().ToTable("Student");
+            modelBuilder.Entity<Reader>().ToTable("Reader");
+            modelBuilder.Entity<Book>().ToTable("Book");
+        }
 
-protected override void OnModelCreating(DbModelBuilder modelBuilder)
-{
-modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-}
-}
+    }
 }
