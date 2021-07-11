@@ -12,7 +12,7 @@ namespace Library.Models.DataModels
 
         [ForeignKey("Author")]
         public int? AuthorId { get; set; }
-
+        public IList<Author> Authors { get; set; }
         public string Name { get; set; }
         public int Year { get; set;  }
         public int Count { get; set; }
