@@ -7,10 +7,15 @@ namespace Library.Models.DataModels
 {
     public class Book
     {
+        [Key]
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Author { get; set; }
 
-        public int PublicationDate { get; set;  }
+        [ForeignKey("Author")]
+        public int? AuthorId { get; set; }
+
+        public string Name { get; set; }
+        public int Year { get; set;  }
+        public int Count { get; set; }
+        public string Publisher { get; set; }
     }
 }

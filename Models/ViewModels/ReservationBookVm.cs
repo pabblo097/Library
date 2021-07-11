@@ -8,5 +8,9 @@ namespace Library.Models.ViewModels
     public class ReservationBookVm
     {
         public int? Id { get; set; }
+        public DateTime DateOfIssue { get; set; }
+        public int UserId { get; set; }
+        public int BookId { get; set; }
+
     }
 }

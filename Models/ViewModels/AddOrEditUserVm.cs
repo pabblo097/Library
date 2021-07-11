@@ -7,6 +7,9 @@ namespace Library.Models.ViewModels
 {
     public class AddOrEditUserVm
     {
-      
+        public int? UserId { get; set; }
+        public int FirstName { get; set; }
+        public int LastName { get; set; }
+        public int Age { get; set; }
     }
 }
