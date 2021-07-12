@@ -11,6 +11,7 @@ namespace Library.Models.ViewModels
         public DateTime DateOfIssue { get; set; }
         public int UserId { get; set; }
         public int BookId { get; set; }
+        public int Status { get; set; }
 
     }
 }

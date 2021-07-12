@@ -38,11 +38,13 @@ namespace Library.DAL
             {
              new Author{FirstName="Carsons",LastName="Alexanders"}
             };
-            foreach (Author c in authors)
+            foreach (Author a in authors)
             {
-                context.Authors.Add(c);
+                context.Authors.Add(a);
             }
             context.SaveChanges();
+
+         
 
         }
     }
