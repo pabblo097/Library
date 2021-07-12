@@ -8,13 +8,8 @@ using System.Threading.Tasks;
 
 namespace Library.Models.DataModels
 {
-    public class User: IdentityUser<int>
+    public class Admin :User
     {
-        [Required]
-        public string FirstName { get; set; }
-        [Required]
-        public string LastName { get; set; }
-        public int Age { get; set; }
-        public DateTime? RegistrationDate { get; set;  }
+
     }
 }

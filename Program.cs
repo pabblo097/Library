@@ -24,7 +24,7 @@ namespace Library
                 try
                 {
                     var context = services.GetRequiredService<LibraryContext>();
-                    DbInitializer.Initialize(context);
+                   
                 }
                 catch (Exception ex)
                 {
@@ -46,7 +46,7 @@ namespace Library
                 try
                 {
                     var context = services.GetRequiredService<LibraryContext>();
-                    DbInitializer.Initialize(context);
+                  
                 }
                 catch (Exception ex)
                 {

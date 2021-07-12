@@ -5,6 +5,7 @@
         Student,
         Reader,
         Teacher,
+        User,
         Admin
     }
 }

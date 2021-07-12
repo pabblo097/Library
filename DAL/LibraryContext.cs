@@ -1,27 +1,34 @@
 using Library.Models.DataModels;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library.DAL
 {
-    public class LibraryContext: DbContext
+    public class LibraryContext: IdentityDbContext<User, Role, int>
     {
         public LibraryContext(DbContextOptions<LibraryContext> options) : base(options)
         {
         }
 
         public DbSet<Author> Authors { get; set; }
-        public DbSet<Student> Students { get; set; }
-        public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Book> Books { get; set; }
-        public DbSet<Reader> Readers { get; set; }
+    
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Author>().ToTable("Author");
-            modelBuilder.Entity<Teacher>().ToTable("Teacher");
-            modelBuilder.Entity<Student>().ToTable("Student");
-            modelBuilder.Entity<Reader>().ToTable("Reader");
-            modelBuilder.Entity<Book>().ToTable("Book");
+            
+         base.OnModelCreating(modelBuilder);
+             // Fluent API commands
+         modelBuilder.Entity<User>()
+            .ToTable("AspNetUsers")
+            .HasDiscriminator<int>("UserType")
+            .HasValue<User>((int)RoleValue.User)
+            .HasValue<Student>((int)RoleValue.Student)
+            .HasValue<Reader>((int)RoleValue.Reader)
+            .HasValue<Teacher>((int)RoleValue.Teacher)
+            .HasValue<Admin>((int)RoleValue.Admin);
+
         }
 
     }
