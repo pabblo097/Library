@@ -12,12 +12,10 @@ namespace Library.DAL
         }
 
         public DbSet<Author> Authors { get; set; }
-        public DbSet<Book> Books { get; set; }
-    
+        public DbSet<Book> Books { get; set; }    
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            
+        {         
          base.OnModelCreating(modelBuilder);
              // Fluent API commands
          modelBuilder.Entity<User>()
@@ -28,8 +26,6 @@ namespace Library.DAL
             .HasValue<Reader>((int)RoleValue.Reader)
             .HasValue<Teacher>((int)RoleValue.Teacher)
             .HasValue<Admin>((int)RoleValue.Admin);
-
         }
-
     }
 }

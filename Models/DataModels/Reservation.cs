@@ -15,6 +15,5 @@ namespace Library.Models.DataModels
         public int UserId { get; set; }
         public int BookId { get; set;  }
         public int Status { get; set; }
-
     }
 }
