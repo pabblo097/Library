@@ -16,9 +16,9 @@ namespace Library.Services
     public class AuthorService : BaseService, IAuthorService
     {
         public AuthorService(ILogger logger, IMapper mapper, UserManager<User> userManager,
-            RoleManager<IdentityRole> roleManager, LibraryContext dbContext) 
+            RoleManager<IdentityRole> roleManager, LibraryContext dbContext)
             : base(logger, mapper, userManager, roleManager, dbContext)
-        {}
+        { }
 
         public AuthorVm GetAuthor(Expression<Func<Author, bool>> filterExpression)
         {

@@ -14,6 +14,7 @@ using Library.Models.DataModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Library.Services;
+using Library.Interfaces;
 
 namespace Library
 {
@@ -38,6 +39,7 @@ namespace Library
                 .AddEntityFrameworkStores<LibraryContext>();
 
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddScoped<IBookService, BookService>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
 
             services.AddControllersWithViews();

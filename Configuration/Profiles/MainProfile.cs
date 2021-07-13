@@ -13,6 +13,7 @@ namespace Library.Configuration.Profiles
         public MainProfile()
         {
             CreateMap<Author, AuthorVm>();
+            //CreateMap<Book, BooksIndexViewModel>();
         }
     }
 }

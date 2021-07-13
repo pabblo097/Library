@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Library.Models.DataModels
 {
-    public class Admin :User
+    public class Admin : User
     {
 
     }

@@ -9,15 +9,14 @@ namespace Library.Models.DataModels
 {
     public class Book
     {
-        [Key]
         public int Id { get; set; }
-
-        [ForeignKey("Author")]
-        public int? AuthorId { get; set; }
-        public IList<Author> Authors { get; set; }
         public string Name { get; set; }
-        public int Year { get; set;  }
-        public int Count { get; set; }
+        public string Author { get; set; }
+        public int Year { get; set; }
         public string Publisher { get; set; }
+        public string Description { get; set; }
+        public string Genre { get; set; }
+        public int NumberOfPages { get; set; }
+        public int Count { get; set; }
     }
 }

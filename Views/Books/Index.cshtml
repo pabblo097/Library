@@ -1,0 +1,43 @@
+﻿@model BooksIndexViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1>Books</h1>
+
+<form method="get">
+    <div class="input-group mb-3">
+        <input type="search" class="form-control" placeholder="Search for restaurants" aria-label="Search for restaurants" aria-describedby="basic-addon2" asp-for="SearchTerm">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+</form>
+
+@foreach (var book in Model.Books)
+{
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-3">
+                <img src="~/images/bookPlaceholder.png" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-9">
+                <div class="card-body">
+                    <h3 class="card-title">@book.Name</h3>
+                    <h5>@book.Author</h5>
+                    <p class="card-text">@book.Description</p>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            Gatunek: @book.Genre | Liczba stron: @book.NumberOfPages
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
