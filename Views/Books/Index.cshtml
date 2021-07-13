@@ -1,22 +1,22 @@
 ﻿@model BooksIndexViewModel
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
+    ViewData["Title"] = "Księgozbiór";
 }
 
-<h1>Books</h1>
+<h1 class="mb-3">@ViewData["Title"]</h1>
 
 <form method="get">
     <div class="input-group mb-3">
-        <input type="search" class="form-control" placeholder="Search by name" aria-label="Search for restaurants" aria-describedby="basic-addon2" asp-for="SearchTerm">
+        <input type="search" class="form-control" placeholder="Wyszukaj po nazwie" aria-label="Search for restaurants" aria-describedby="basic-addon2" asp-for="SearchTerm">
         <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button">
+            <button class="btn btn-outline-secondary" type="submit">
                 <i class="fas fa-search"></i>
             </button>
         </div>
     </div>
 </form>
+
+
 
 @foreach (var book in Model.Books)
 {
