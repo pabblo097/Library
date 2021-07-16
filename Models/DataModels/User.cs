@@ -16,5 +16,9 @@ namespace Library.Models.DataModels
         public string LastName { get; set; }
         public int Age { get; set; }
         public DateTime? RegistrationDate { get; set;  }
+
+        public virtual IList<Reservation> Reservations { get; set; }
+
+        public int Index { get; set; }
     }
 }

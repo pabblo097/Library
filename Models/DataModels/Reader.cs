@@ -8,12 +8,7 @@ namespace Library.Models.DataModels
 {
     public class Reader : User
     {
-        //public virtual Book Book { get; set; }
-
-        //[ForeignKey("Book")]
-        //public int? BookId { get; set; }
-
-        //public virtual IList<Book> Books { get; set; }
+        
 
     }
 }

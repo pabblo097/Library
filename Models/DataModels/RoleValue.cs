@@ -6,6 +6,8 @@
         Reader,
         Teacher,
         User,
+        Librarian,
         Admin
+        
     }
 }

@@ -12,8 +12,13 @@ namespace Library.Models.DataModels
     {
         public int Id { get; set; }
         public DateTime DateOfIssue { get; set; }
-        public int UserId { get; set; }
-        public int BookId { get; set;  }
-        public int Status { get; set; }
+
+        public ReservationState ReservationState { get; set; }
+
+        public virtual User User { get; set; }
+        public int? UserId { get; set; }
+
+        public virtual Book Book { get; set;  }
+        public int? BookId { get; set;  }
     }
 }
