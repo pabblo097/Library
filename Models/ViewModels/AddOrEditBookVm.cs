@@ -12,7 +12,6 @@ namespace Library.Models.ViewModels
         public int? BookId { get; set; }
         public string Title { get; set; }
         public int Year { get; set;  }
-        public IList<AuthorVm> Authors { get; set; }
         public int Pages { get; set;  }
         public string Publisher { get; set; } 
     }

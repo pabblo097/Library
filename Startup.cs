@@ -38,7 +38,7 @@ namespace Library
                 .AddUserManager<UserManager<User>>()
                 .AddEntityFrameworkStores<LibraryContext>();
 
-            services.AddTransient<IEmailSender, EmailSender>();
+          
             services.AddScoped<IBookService, BookService>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
 
