@@ -16,9 +16,13 @@ namespace Library.Models.DataModels
         public ReservationState ReservationState { get; set; }
 
         public virtual User User { get; set; }
+
+        [ForeignKey("User")]
         public int? UserId { get; set; }
 
         public virtual Book Book { get; set;  }
+
+        [ForeignKey("Book")]
         public int? BookId { get; set;  }
     }
 }
