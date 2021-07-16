@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
+﻿using Library.Models.DataModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Library.Models.DataModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace Library.Areas.Identity.Pages.Account
 {
@@ -47,11 +47,11 @@ namespace Library.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [Display(Name = "First Name")]
+            [Display(Name = "Imię")]
             public string FirstName { get; set; }
 
             [Required]
-            [Display(Name = "Last Name")]
+            [Display(Name = "Nazwisko")]
             public string LastName { get; set; }
 
             [Required]
@@ -62,13 +62,25 @@ namespace Library.Areas.Identity.Pages.Account
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Hasło")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
+            [Display(Name = "Powtórz hasło")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+            
+            [Required]
+            //Age musi mieć ilość znaków pomiędzy 1 a 3
+            [RegularExpression(@"^[0-9]{1,3}$", ErrorMessage= "Please enter a valid Age value.")]
+            [Display(Name = "Wiek")]
+            public int Age { get; set; }
+
+            //Index akceptuje tylko liczby, musi mieć 5 znaków 
+            [RegularExpression(@"^[0-9]*$", ErrorMessage= "Please enter a valid Index value.")]
+            [StringLength(5, ErrorMessage= "Please enter a valid Index value.", MinimumLength = 5)]
+            [Display(Name = "Indeks")]
+            public string Index { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -83,11 +95,16 @@ namespace Library.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = Input.Email,
+                var user = new User
+                {
+                    UserName = Input.Email,
                     Email = Input.Email,
-                FirstName = Input.FirstName,
-                LastName = Input.LastName,
-                RegistrationDate = DateTime.Now};
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    Age = Input.Age,
+                    Index = Input.Index,
+                    RegistrationDate = DateTime.Now
+                };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

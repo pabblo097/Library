@@ -19,6 +19,6 @@ namespace Library.Models.DataModels
 
         public virtual IList<Reservation> Reservations { get; set; }
 
-        public int Index { get; set; }
+        public string Index { get; set; }
     }
 }
