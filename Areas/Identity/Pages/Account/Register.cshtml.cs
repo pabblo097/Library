@@ -76,9 +76,9 @@ namespace Library.Areas.Identity.Pages.Account
             [Display(Name = "Wiek")]
             public int Age { get; set; }
 
-            //Index akceptuje tylko liczby, musi mieć 5 znaków 
+            //Index akceptuje tylko liczby, musi mieć 6 znaków 
             [RegularExpression(@"^[0-9]*$", ErrorMessage= "Please enter a valid Index value.")]
-            [StringLength(5, ErrorMessage= "Please enter a valid Index value.", MinimumLength = 5)]
+            [StringLength(6, ErrorMessage= "Please enter a valid Index value.", MinimumLength = 6)]
             [Display(Name = "Indeks")]
             public string Index { get; set; }
         }
