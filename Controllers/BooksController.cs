@@ -1,7 +1,9 @@
-﻿using Library.Interfaces;
+﻿using Library.DAL;
+using Library.Interfaces;
 using Library.Models.DataModels;
 using Library.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace Library.Controllers
@@ -10,7 +12,7 @@ namespace Library.Controllers
     {
         private readonly IBookService bookService;
 
-        public BooksController(IBookService bookService)
+        public BooksController(IBookService bookService, LibraryContext context)
         {
             this.bookService = bookService;
         }
@@ -82,6 +84,7 @@ namespace Library.Controllers
 
             return View(book);
         }
+
 
         public IActionResult Delete(int id)
         {

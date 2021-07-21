@@ -10,7 +10,7 @@ namespace Library.Models.DataModels
 {
     public class Book
     {
-        [BindNever]
+        //[BindNever]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Proszę wprowadzić tytuł")]
