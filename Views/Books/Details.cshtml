@@ -1,5 +1,11 @@
 ﻿@model BooksDetailsViewModel
 @{
+    ViewData["Title"] = "Szczegóły książki";
+}
+
+@if (TempData["AddMessage"] != null)
+{
+    <div class="alert alert-info">@TempData["AddMessage"]</div>
 }
 
 <div class="card my-4 overflow-hidden">

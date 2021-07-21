@@ -10,5 +10,6 @@ namespace Library.Interfaces
     {
         IEnumerable<Book> GetAllBooksByName(string name);
         Book GetBookbyId(int bookId);
+        Book AddBook(Book book);
     }
 }

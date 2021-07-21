@@ -32,5 +32,13 @@ namespace Library.Services
         {
             return dbContext.Books.FirstOrDefault(b => b.Id == bookId);
         }
+
+        public Book AddBook(Book book)
+        {
+            dbContext.Books.Add(book);
+            dbContext.SaveChanges();
+
+            return book;
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Library.Interfaces;
+using Library.Models.DataModels;
 using Library.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -42,6 +43,24 @@ namespace Library.Controllers
             };
 
             return View(booksDetailsViewModel);
+        }
+
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Add(Book book)
+        {
+            if (ModelState.IsValid)
+            {
+                TempData["AddMessage"] = "Pomyślnie dodano książkę!";
+                bookService.AddBook(book);
+                return RedirectToAction("Details", new { bookId = book.Id });
+            }
+
+            return View(book);
         }
     }
 }

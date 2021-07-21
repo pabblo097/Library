@@ -3,7 +3,10 @@
     ViewData["Title"] = "Księgozbiór";
 }
 
-<h1 class="mb-3">@ViewData["Title"]</h1>
+<div class="d-flex flex-row justify-content-between">
+    <h1 class="mb-3">@ViewData["Title"]</h1>
+    <a class="btn btn-primary align-self-center" asp-controller="Books" asp-action="Add">Dodaj książke</a>
+</div>
 
 
 <form method="get">
