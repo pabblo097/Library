@@ -1,0 +1,45 @@
+﻿@model BooksDetailsViewModel
+@{
+}
+
+<div class="card my-4 overflow-hidden">
+    <div class="row g-0 border-bottom">
+        <div class="col-md-5 pr-md-0 d-flex flex-column justify-content-center">
+            <img src="~/images/ListWButelce.jpeg" class="img-fluid rounded-start overflow-hidden" alt="...">
+        </div>
+        <div class="col-md-7 pl-md-0 d-flex flex-column text-center text-md-left">
+            <div class="card-header">
+                <h1 class="card-title">@Model.Book.Name</h1>
+                <h3 class="card-text">@Model.Book.Author</h3>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        Wydawnictwo: <span class="font-weight-bold pl-1">@Model.Book.Publisher</span>
+                    </li>
+                    <li class="list-group-item">
+                        Rok wydania: <span class="font-weight-bold pl-1">@Model.Book.Year</span>
+                    </li>
+                    <li class="list-group-item">
+                        Gatunek: <span class="font-weight-bold pl-1">@Model.Book.Genre</span>
+                    </li>
+                    <li class="list-group-item">
+                        Ilość stron: <span class="font-weight-bold pl-1">@Model.Book.NumberOfPages</span>
+                    </li>
+                    <li class="list-group-item">
+                        Liczba dostepnych egzemplarzy: <span class="font-weight-bold pl-1">@Model.Book.Count</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-primary text-white">Zarezerwuj</a>
+                <a class="btn btn-primary text-white">Edytuj</a>
+                <a class="btn btn-primary text-white">Usuń</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <h3 class="card-title">Opis:</h3>
+        @Model.Book.LongDescription
+    </div>
+</div>

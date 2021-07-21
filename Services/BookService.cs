@@ -27,5 +27,10 @@ namespace Library.Services
                    orderby b.Id
                    select b;
         }
+
+        public Book GetBookbyId(int bookId)
+        {
+            return dbContext.Books.FirstOrDefault(b => b.Id == bookId);
+        }
     }
 }

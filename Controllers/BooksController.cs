@@ -16,13 +16,32 @@ namespace Library.Controllers
         {
             this.bookService = bookService;
         }
+
         public IActionResult Index(string searchTerm)
         {
-            var booksIndexViewModel = new BooksIndexViewModel()
+            var booksIndexViewModel = new BooksIndexViewModel
             {
                 Books = bookService.GetAllBooksByName(searchTerm)
             };
             return View(booksIndexViewModel);
+        }
+
+        [Route("Books/Details/{bookId:int?}")]
+        public IActionResult Details(int bookId)
+        {
+            var book = bookService.GetBookbyId(bookId);
+
+            if (book == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var booksDetailsViewModel = new BooksDetailsViewModel
+            {
+                Book = book
+            };
+
+            return View(booksDetailsViewModel);
         }
     }
 }

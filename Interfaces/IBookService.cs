@@ -9,5 +9,6 @@ namespace Library.Interfaces
     public interface IBookService
     {
         IEnumerable<Book> GetAllBooksByName(string name);
+        Book GetBookbyId(int bookId);
     }
 }

@@ -3,12 +3,10 @@
     public enum ReservationState
     {
 
-       Pending,
-       Rejected,
-       Accepted,
-       Borrowed,
-       Returned
-       
-
+        Pending,
+        Rejected,
+        Accepted,
+        Borrowed,
+        Returned
     }
 }

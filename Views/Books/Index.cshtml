@@ -5,6 +5,7 @@
 
 <h1 class="mb-3">@ViewData["Title"]</h1>
 
+
 <form method="get">
     <div class="input-group mb-3">
         <input type="search" class="form-control" placeholder="Wyszukaj po nazwie" aria-label="Search for restaurants" aria-describedby="basic-addon2" asp-for="SearchTerm">
@@ -22,14 +23,16 @@
 {
     <div class="card mb-3">
         <div class="row g-0">
-            <div class="col-md-3">
+            <div class="col-md-3 pr-md-0 pr-lg-3 d-flex flex-column justify-content-center">
                 <img src="~/images/bookPlaceholder.png" class="img-fluid rounded-start" alt="...">
             </div>
-            <div class="col-md-9">
+            <div class="col-md-9 pl-md-0 pl-lg-3">
                 <div class="card-body">
-                    <h3 class="card-title">@book.Name</h3>
+                    <a asp-controller="Books" asp-action="Details" asp-route-bookId="@book.Id" class="text-decoration-none">
+                        <h3 class="card-title">@book.Name</h3>
+                    </a>
                     <h5>@book.Author</h5>
-                    <p class="card-text">@book.Description</p>
+                    <p class="card-text">@book.ShortDescription</p>
                     <p class="card-text">
                         <small class="text-muted">
                             Gatunek: @book.Genre | Liczba stron: @book.NumberOfPages
