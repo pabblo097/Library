@@ -1,6 +1,6 @@
-﻿@model BooksDetailsViewModel
+﻿@model Book
 @{
-    ViewData["Title"] = "Szczegóły książki";
+    ViewData["Title"] = "Usuń książkę";
 }
 
 @if (TempData["AddMessage"] != null)
@@ -15,37 +15,41 @@
         </div>
         <div class="col-md-7 pl-md-0 d-flex flex-column text-center text-md-left">
             <div class="card-header">
-                <h1 class="card-title">@Model.Book.Name</h1>
-                <h3 class="card-text">@Model.Book.Author</h3>
+                <h1 class="card-title">@Model.Name</h1>
+                <h3 class="card-text">@Model.Author</h3>
             </div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                        Wydawnictwo: <span class="font-weight-bold pl-1">@Model.Book.Publisher</span>
+                        Wydawnictwo: <span class="font-weight-bold pl-1">@Model.Publisher</span>
                     </li>
                     <li class="list-group-item">
-                        Rok wydania: <span class="font-weight-bold pl-1">@Model.Book.Year</span>
+                        Rok wydania: <span class="font-weight-bold pl-1">@Model.Year</span>
                     </li>
                     <li class="list-group-item">
-                        Gatunek: <span class="font-weight-bold pl-1">@Model.Book.Genre</span>
+                        Gatunek: <span class="font-weight-bold pl-1">@Model.Genre</span>
                     </li>
                     <li class="list-group-item">
-                        Ilość stron: <span class="font-weight-bold pl-1">@Model.Book.NumberOfPages</span>
+                        Ilość stron: <span class="font-weight-bold pl-1">@Model.NumberOfPages</span>
                     </li>
                     <li class="list-group-item">
-                        Liczba dostepnych egzemplarzy: <span class="font-weight-bold pl-1">@Model.Book.Count</span>
+                        Liczba dostepnych egzemplarzy: <span class="font-weight-bold pl-1">@Model.Count</span>
                     </li>
                 </ul>
             </div>
             <div class="card-footer">
-                <a class="btn btn-primary text-white">Zarezerwuj</a>
-                <a class="btn btn-primary text-white" asp-action="Edit" asp-route-id="@Model.Book.Id">Edytuj</a>
-                <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@Model.Book.Id">Usuń</a>
+                <form asp-action="Delete">
+                    <a>Czy na pewno usunąć tę książkę?</a>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="submit" value="Tak" class="btn btn-danger" /> 
+                    <a class="btn btn-primary" asp-action="Index">Nie</a>
+                </form>
             </div>
         </div>
     </div>
     <div class="card-body">
         <h3 class="card-title">Opis:</h3>
-        @Model.Book.LongDescription
+        @Model.LongDescription
     </div>
 </div>
+

@@ -40,5 +40,19 @@ namespace Library.Services
 
             return book;
         }
+
+        public Book EditBook(Book book)
+        {
+            dbContext.Books.Update(book);
+            dbContext.SaveChanges();
+
+            return book;
+        }
+
+        public void DeleteBook(Book book)
+        {
+            dbContext.Books.Remove(book);
+            dbContext.SaveChanges();
+        }
     }
 }

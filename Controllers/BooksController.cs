@@ -2,9 +2,6 @@
 using Library.Models.DataModels;
 using Library.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Library.Controllers
@@ -61,6 +58,50 @@ namespace Library.Controllers
             }
 
             return View(book);
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var book = bookService.GetBookbyId(id);
+
+            if (book == null)
+                return RedirectToAction("Index");
+
+            return View(book);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Book book)
+        {
+            if (ModelState.IsValid)
+            {
+                TempData["AddMessage"] = "Edycja książki powiodła się!";
+                bookService.EditBook(book);
+                return RedirectToAction("Details", new { bookId = book.Id });
+            }
+
+            return View(book);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var book = bookService.GetBookbyId(id);
+
+            if (book == null)
+                return RedirectToAction("Index");
+
+            return View(book);
+        }
+
+        // POST: Books1/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var book = bookService.GetBookbyId(id);
+            bookService.DeleteBook(book);
+
+            return RedirectToAction("Index");
         }
     }
 }
