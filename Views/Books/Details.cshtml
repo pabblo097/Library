@@ -10,8 +10,15 @@
 
 <div class="card my-4 overflow-hidden">
     <div class="row g-0 border-bottom">
-        <div class="col-md-5 pr-md-0 d-flex flex-column justify-content-center">
-            <img src="~/images/ListWButelce.jpeg" class="img-fluid rounded-start overflow-hidden" alt="...">
+        <div class="col-md-5 pr-md-0 d-flex flex-column justify-content-center">   
+            @if (Model.Book.BookCover == null)
+            {
+            <img id="BookCover" class="img-fluid rounded-start overflow-hidden" object-fit:cover" src="~/images/bookPlaceholder.png">               
+            }
+            else
+            {
+        <img id="BookCover" class="img-fluid rounded-start overflow-hidden" object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.Book.BookCover))">
+            }
         </div>
         <div class="col-md-7 pl-md-0 d-flex flex-column text-center text-md-left">
             <div class="card-header">
@@ -38,7 +45,7 @@
                 </ul>
             </div>
             <div class="card-footer">
-                <a class="btn btn-primary text-white">Zarezerwuj</a>
+                <a class="btn btn-primary text-white" asp-action="ReservationRequest" asp-route-id="@Model.Book.Id">Zarezerwuj</a>
                 <a class="btn btn-primary text-white" asp-action="Edit" asp-route-id="@Model.Book.Id">Edytuj</a>
                 <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@Model.Book.Id">Usuń</a>
             </div>

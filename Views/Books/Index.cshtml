@@ -27,7 +27,14 @@
     <div class="card mb-3">
         <div class="row g-0">
             <div class="col-md-3 pr-md-0 pr-lg-3 d-flex flex-column justify-content-center">
-                <img src="~/images/bookPlaceholder.png" class="img-fluid rounded-start" alt="...">
+                @if (book.BookCover == null)
+                {
+                    <img id="BookCover" class="img-fluid rounded-start overflow-hidden" object-fit:cover" src="~/images/bookPlaceholder.png">
+                }
+                else
+                {
+                    <img id="BookCover" class="img-fluid rounded-start overflow-hidden" object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(book.BookCover))">
+                }
             </div>
             <div class="col-md-9 pl-md-0 pl-lg-3">
                 <div class="card-body">

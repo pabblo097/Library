@@ -2,7 +2,6 @@
 {
     public enum ReservationState
     {
-
         Pending,
         Rejected,
         Accepted,

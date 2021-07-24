@@ -56,5 +56,8 @@ namespace Library.Models.DataModels
         [Display(Name = "Ilość egzemplaży")]
         [Range(1, Int32.MaxValue, ErrorMessage = "Proszę wprowadzić odpowiednią ilość egzemplarzy (minimalna wartość to 1)")]
         public int? Count { get; set; }
+
+        [Display(Name = "Okładka książki")]
+        public byte[] BookCover { get; set; }
     }
 }

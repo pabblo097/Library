@@ -12,6 +12,7 @@ namespace Library.Interfaces
         Book GetBookbyId(int bookId);
         Book AddBook(Book book);
         Book EditBook(Book book);
+        Reservation ReservationRequestService(Book book, User user);
         void DeleteBook(Book book);
     }
 }

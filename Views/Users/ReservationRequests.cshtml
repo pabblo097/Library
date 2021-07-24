@@ -1,0 +1,36 @@
+﻿@model ReservationRequestsVm
+@{
+    ViewData["Title"] = "Prośby o wypożyczenie książki";
+}
+
+<div class="d-flex flex-row justify-content-between">
+    <h1 class="mb-3">@ViewData["Title"]</h1>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Email</th>
+            <th>Tytuł książki</th>
+            <th>Status wypożyczenia</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Reservations)
+        {
+        <tr>
+            <td>@item.User.FirstName</td>
+            <td>@item.User.LastName</td>
+            <td>@item.User.Email</td>
+            <td>@item.Book.Name</td>
+            @if (@item.ReservationState == ReservationState.Pending) { <td>Oczekujący</td>}
+        <td>
+            <a class="btn btn-primary text-white" asp-action="ReservationConfirmed" asp-route-id="@item.Id">Zatwierdź</a>
+            <a class="btn btn-primary text-white" asp-action="ReservationRejected" asp-route-id="@item.Id">Odrzuć</a>
+        </td>
+        </tr>
+        }
+    </tbody>
+</table>

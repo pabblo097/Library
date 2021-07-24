@@ -40,7 +40,7 @@ namespace Library
 
           
             services.AddScoped<IBookService, BookService>();
-            services.Configure<AuthMessageSenderOptions>(Configuration);
+            services.AddScoped<IUserService, UserService>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

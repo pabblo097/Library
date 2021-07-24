@@ -1,13 +1,9 @@
-﻿using AutoMapper;
-using Library.DAL;
+﻿using Library.DAL;
 using Library.Interfaces;
 using Library.Models.DataModels;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Library.Services
 {
@@ -35,6 +31,7 @@ namespace Library.Services
 
         public Book AddBook(Book book)
         {
+
             dbContext.Books.Add(book);
             dbContext.SaveChanges();
 
@@ -53,6 +50,25 @@ namespace Library.Services
         {
             dbContext.Books.Remove(book);
             dbContext.SaveChanges();
+        }
+
+        public Reservation ReservationRequestService(Book book, User user)
+        {
+            var reservation = new Reservation()
+            {
+                BookId = book.Id,
+                Book = book,
+                UserId = user.Id,
+                User = user,
+                ReservationState = ReservationState.Pending,
+                DateOfIssue = DateTime.Now
+            };
+            book.Count -= 1;
+            dbContext.Reservations.Add(reservation);
+            dbContext.Books.Update(book);
+            dbContext.SaveChanges();
+
+            return reservation;
         }
     }
 }
