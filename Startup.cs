@@ -30,15 +30,24 @@ namespace Library
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<LibraryContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<LibraryContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddRoles<Role>()
-                .AddRoleManager<RoleManager<Role>>()
-                .AddUserManager<UserManager<User>>()
-                .AddEntityFrameworkStores<LibraryContext>();
+            //services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
+            //    .AddRoles<Role>()
+            //    .AddRoleManager<RoleManager<Role>>()
+            //    .AddUserManager<UserManager<User>>()
+            //    .AddEntityFrameworkStores<LibraryContext>();
 
-          
+            services.AddDbContext<LibraryContext>(options =>
+           options.UseSqlServer(
+             Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<LibraryContext>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
+
+
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IUserService, UserService>();
 
@@ -72,7 +81,7 @@ namespace Library
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Books}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

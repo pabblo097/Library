@@ -1,9 +1,12 @@
 ﻿using Library.Interfaces;
 using Library.Models.DataModels;
 using Library.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Library.Controllers
 {
@@ -23,7 +26,8 @@ namespace Library.Controllers
             return View();
         }
 
-        public IActionResult ReservationRequests()
+        [Authorize(Roles ="Admin, Librarian")]
+        public IActionResult ReservationRequestsAsync()
         {
             var reservationRequestsVm = new ReservationRequestsVm()
             {
@@ -33,11 +37,70 @@ namespace Library.Controllers
             return View(reservationRequestsVm);
         }
 
+        [Authorize]
+        public async Task<IActionResult> MyBooksData()
+        {
+            var currentLoggedUser = await GetCurrentUser();
+
+            var reservationRequestsVm = new ReservationRequestsVm()
+            {
+                Reservations = userService.GetAllReservationRequests()
+                .Where( x=> x.UserId == currentLoggedUser.Id).ToList()
+            };
+
+            return View(reservationRequestsVm);
+        }
+
+        public IActionResult PendingOnly()
+        {
+            var reservationRequestsVm = new ReservationRequestsVm()
+            {
+                Reservations = userService.GetAllReservationRequests()
+                .Where(x => x.ReservationState == ReservationState.Pending).ToList()
+            };
+
+            return View("ReservationRequests", reservationRequestsVm);
+        }
+
+        public IActionResult RejectedOnly()
+        {
+            var reservationRequestsVm = new ReservationRequestsVm()
+            {
+                Reservations = userService.GetAllReservationRequests()
+                .Where(x => x.ReservationState == ReservationState.Rejected).ToList()
+            };
+
+            return View("ReservationRequests", reservationRequestsVm);
+        }
+
+        public IActionResult AcceptedOnly()
+        {
+            var reservationRequestsVm = new ReservationRequestsVm()
+            {
+                Reservations = userService.GetAllReservationRequests()
+                .Where(x => x.ReservationState == ReservationState.Accepted).ToList()
+            };
+
+            return View("ReservationRequests", reservationRequestsVm);
+        }
+
+        public IActionResult ReturnedOnly()
+        {
+            var reservationRequestsVm = new ReservationRequestsVm()
+            {
+                Reservations = userService.GetAllReservationRequests()
+                .Where(x => x.ReservationState == ReservationState.Returned).ToList()
+            };
+
+            return View("ReservationRequests", reservationRequestsVm);
+        }
+
         public IActionResult ReservationConfirmed(int id)
         {
             var reservation = userService.GetReservationbyId(id);
 
             reservation.ReservationState = ReservationState.Accepted;
+            reservation.DateOfIssue = DateTime.Now;
 
             userService.UpdateReservation(reservation);
 
@@ -49,10 +112,32 @@ namespace Library.Controllers
             var reservation = userService.GetReservationbyId(id);
 
             reservation.ReservationState = ReservationState.Rejected;
+            reservation.DateOfIssue = DateTime.Now;
 
             userService.UpdateReservation(reservation);
 
             return RedirectToAction("ReservationRequests");
         }
+
+        public IActionResult BookReturned(int id)
+        {
+            var reservation = userService.GetReservationbyId(id);
+
+            reservation.ReservationState = ReservationState.Returned;
+            reservation.DateOfIssue = DateTime.Now;
+
+            userService.UpdateReservation(reservation);
+
+            return RedirectToAction("MyBooksData");
+        }
+
+        [HttpGet]
+        public async Task<User> GetCurrentUser()
+        {
+            var usr = await GetCurrentUserAsync();
+            return usr;
+        }
+
+        private Task<User> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
     }
 }

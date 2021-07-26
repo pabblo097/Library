@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Library.DAL
 {
-    public class LibraryContext : IdentityDbContext<User, Role, int>
+    public class LibraryContext : IdentityDbContext<User>
     {
         public LibraryContext(DbContextOptions<LibraryContext> options) : base(options)
         {
@@ -17,20 +17,17 @@ namespace Library.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            // Fluent API commands
-            modelBuilder.Entity<User>()
-            .ToTable("AspNetUsers")
-            .HasDiscriminator<int>("UserType")
-            .HasValue<User>((int)RoleValue.User)
-            .HasValue<Student>((int)RoleValue.Student)
-            .HasValue<Reader>((int)RoleValue.Reader)
-            .HasValue<Teacher>((int)RoleValue.Teacher)
-            .HasValue<Admin>((int)RoleValue.Admin);
-
-
+            //// Fluent API commands
+            //modelBuilder.Entity<User>()
+            //.ToTable("AspNetUsers")
+            //.HasDiscriminator<int>("UserType")
+            //.HasValue<User>((int)RoleValue.User)
+            //.HasValue<Student>((int)RoleValue.Student)
+            //.HasValue<Reader>((int)RoleValue.Reader)
+            //.HasValue<Teacher>((int)RoleValue.Teacher)
+            //.HasValue<Admin>((int)RoleValue.Admin);
 
             //seedowanie danych
-
             modelBuilder.Entity<Book>().HasData(new Book
             {
                 Id = 1,

@@ -8,13 +8,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Identity;
+using Library.Models.DataModels;
 
 namespace Library
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
 
@@ -24,7 +25,11 @@ namespace Library
                 try
                 {
                     var context = services.GetRequiredService<LibraryContext>();
-                   
+                    var userManager = services.GetRequiredService<UserManager<User>>();
+                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                    await SeedData.SeedRolesAsync(userManager, roleManager);
+                    await SeedData.SeedAdminAsync(userManager);
+                    await SeedData.SeedLibrarianAsync(userManager);
                 }
                 catch (Exception ex)
                 {

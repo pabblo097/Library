@@ -20,8 +20,7 @@ namespace Library.Services
 
         public IQueryable<Reservation> GetAllReservationRequests()
         {
-            return from r in dbContext.Reservations.Where(x => x.ReservationState == ReservationState.Pending)
-                   .Include(b => b.Book).Include(u => u.User) 
+            return from r in dbContext.Reservations.Include(b => b.Book).Include(u => u.User) 
                    select r;
         }
 
@@ -32,7 +31,8 @@ namespace Library.Services
 
         public Reservation UpdateReservation(Reservation reservation)
         {
-            if(reservation.ReservationState == ReservationState.Rejected)
+            if(reservation.ReservationState == ReservationState.Rejected 
+                || reservation.ReservationState == ReservationState.Returned)
             {
                 var book = dbContext.Books.FirstOrDefault(x => x.Id == reservation.BookId);
 

@@ -51,6 +51,7 @@ namespace Library.Controllers
             return View(booksDetailsViewModel);
         }
 
+        [Authorize(Roles ="Admin, Librarian")]
         public IActionResult Add()
         {
             return View();
@@ -79,6 +80,7 @@ namespace Library.Controllers
             return View(book);
         }
 
+        [Authorize(Roles ="Librarian, Admin")]
         public IActionResult Edit(int id)
         {
             var book = bookService.GetBookbyId(id);
@@ -144,6 +146,7 @@ namespace Library.Controllers
             return RedirectToAction("Details", new { bookId = book.Id });
         }
 
+        [Authorize(Roles = "Librarian, Admin")]
         public IActionResult Delete(int id)
         {
             var book = bookService.GetBookbyId(id);

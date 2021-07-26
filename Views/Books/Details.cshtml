@@ -45,10 +45,16 @@
                 </ul>
             </div>
             <div class="card-footer">
+                @if (!User.IsInRole("User") && User.Identity.IsAuthenticated)
+                {
                 <a class="btn btn-primary text-white" asp-action="ReservationRequest" asp-route-id="@Model.Book.Id">Zarezerwuj</a>
-                <a class="btn btn-primary text-white" asp-action="Edit" asp-route-id="@Model.Book.Id">Edytuj</a>
-                <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@Model.Book.Id">Usuń</a>
-            </div>
+                }
+                @if (User.IsInRole("Admin") || User.IsInRole("Librarian"))
+                {
+                    <a class="btn btn-primary text-white" asp-action="Edit" asp-route-id="@Model.Book.Id">Edytuj</a>
+                    <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@Model.Book.Id">Usuń</a>
+                }
+                </div>
         </div>
     </div>
     <div class="card-body">

@@ -3,9 +3,13 @@
     ViewData["Title"] = "Księgozbiór";
 }
 
+
 <div class="d-flex flex-row justify-content-between">
     <h1 class="mb-3">@ViewData["Title"]</h1>
-    <a class="btn btn-primary align-self-center" asp-controller="Books" asp-action="Add">Dodaj książke</a>
+    @if (User.IsInRole("Admin") || User.IsInRole("Librarian"))
+    {
+        <a class="btn btn-primary align-self-center" asp-controller="Books" asp-action="Add">Dodaj książke</a>
+    }
 </div>
 
 
@@ -39,7 +43,14 @@
             <div class="col-md-9 pl-md-0 pl-lg-3">
                 <div class="card-body">
                     <a asp-controller="Books" asp-action="Details" asp-route-bookId="@book.Id" class="text-decoration-none">
-                        <h3 class="card-title">@book.Name</h3>
+                        @if (book.Count == 0)
+                        {
+                            <h3 class="card-title">@book.Name (Niedostępna)</h3>
+                        }
+                        else
+                        {
+                            <h3 class="card-title">@book.Name</h3>
+                        }
                     </a>
                     <h5>@book.Author</h5>
                     <p class="card-text">@book.ShortDescription</p>

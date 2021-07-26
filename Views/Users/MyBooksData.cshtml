@@ -1,62 +1,40 @@
 ﻿@model ReservationRequestsVm
 @{
-    ViewData["Title"] = "Wypożyczenia/rezerwacje użytkowników biblioteki";
+    ViewData["Title"] = "Moje wypożyczenia/rezerwacje";
 }
 
 <div class="d-flex flex-row justify-content-between">
     <h1 class="mb-3">@ViewData["Title"]</h1>
 </div>
-<td>
-    <a class="btn btn-primary text-white" asp-action="ReservationRequests">Wszystkie</a>
-</td>
-<td>
-    <a class="btn btn-primary text-white" asp-action="PendingOnly">Oczekujące</a>
-</td>
-<td>
-    <a class="btn btn-primary text-white" asp-action="AcceptedOnly">Zaakceptowane</a>
-</td>
-<td>
-    <a class="btn btn-primary text-white" asp-action="RejectedOnly">Odrzucone</a>
-</td>
-<td>
-    <a class="btn btn-primary text-white" asp-action="ReturnedOnly">Zwrócone</a>
-</td>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th></th>
-            <th>Email</th>
             <th>Tytuł książki</th>
             <th>Data</th>
             <th>Status</th>
-            <th>Zmień status</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.Reservations)
         {
         <tr>
-            <td>@item.User.FirstName @item.User.LastName</td>
-            <td>@item.User.Email</td>
             <td>@item.Book.Name</td>
             <td>@item.DateOfIssue</td>
             @if (@item.ReservationState == ReservationState.Pending)
             {
                 <td>Oczekujący</td>
-                <td>
-                    <a class="btn btn-primary text-white" asp-action="ReservationConfirmed" asp-route-id="@item.Id">Zatwierdź</a>
-                    <a class="btn btn-primary text-white" asp-action="ReservationRejected" asp-route-id="@item.Id">Odrzuć</a>
-                </td>
+                <td></td>
             }
             @if (@item.ReservationState == ReservationState.Rejected)
             {
-                <td>Rezerwacja Odrzucona</td>
+        <td>Rezerwacja Odrzucona</td>
                 <td></td>
             }
             @if (@item.ReservationState == ReservationState.Accepted)
             {
         <td>Rezerwacja Zaakceptowana</td>
-                <td><a class="btn btn-primary text-white" asp-action="BookReturned" asp-route-id="@item.Id">Oddano</a></td>
+                <td></td>
             }
             @if (@item.ReservationState == ReservationState.Borrowed)
             {
@@ -68,7 +46,8 @@
                 <td>Książka została oddana</td>
                 <td></td>
             }
-        </tr>         
+        </tr>
+
         }
     </tbody>
 </table>

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Library.Models.DataModels
 {
-    public class User: IdentityUser<int>
+    public class User: IdentityUser
     {
         [Required]
         public string FirstName { get; set; }
