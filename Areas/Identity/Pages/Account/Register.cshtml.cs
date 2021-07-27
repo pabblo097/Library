@@ -46,39 +46,39 @@ namespace Library.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage ="Proszę podać {0}.")]
             [Display(Name = "Imię")]
             public string FirstName { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Proszę podać {0}.")]
             [Display(Name = "Nazwisko")]
             public string LastName { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Proszę podać {0}.")]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Proszę podać {0}.")]
+            [StringLength(100, ErrorMessage = "{0} musi mieć minimum {2} znaków oraz maksimum {1} znaków.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Hasło")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
             [Display(Name = "Powtórz hasło")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "Podane hasła różnią się.")]
             public string ConfirmPassword { get; set; }
-            
-            [Required]
+
+            [Required(ErrorMessage = "Proszę podać {0}.")]
             //Age musi mieć ilość znaków pomiędzy 1 a 3
-            [RegularExpression(@"^[0-9]{1,3}$", ErrorMessage= "Please enter a valid Age value.")]
+            [RegularExpression(@"^[0-9]{1,3}$", ErrorMessage= "Podaj właściwą wartość dla {0}.")]
             [Display(Name = "Wiek")]
             public int Age { get; set; }
 
             //Index akceptuje tylko liczby, musi mieć 6 znaków 
-            [RegularExpression(@"^[0-9]*$", ErrorMessage= "Please enter a valid Index value.")]
-            [StringLength(6, ErrorMessage= "Please enter a valid Index value.", MinimumLength = 6)]
+            [RegularExpression(@"^[0-9]*$", ErrorMessage= "Podaj właściwą wartość dla {0}.")]
+            [StringLength(6, ErrorMessage= "Podaj właściwą wartość dla {0}.", MinimumLength = 6)]
             [Display(Name = "Indeks")]
             public string Index { get; set; }
         }

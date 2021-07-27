@@ -43,11 +43,11 @@ namespace Library.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Proszę podać {0}")]
             [EmailAddress]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Proszę podać {0}")]
             [DataType(DataType.Password)]
             [Display(Name = "Hasło")]
             public string Password { get; set; }
@@ -100,7 +100,7 @@ namespace Library.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Próba zalogowania nie powiodła się.");
                     return Page();
                 }
             }
