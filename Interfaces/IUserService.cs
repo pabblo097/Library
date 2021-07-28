@@ -11,5 +11,6 @@ namespace Library.Interfaces
         IQueryable<Reservation> GetAllReservationRequests();
         Reservation GetReservationbyId(int id);
         Reservation UpdateReservation(Reservation reservation);
+        IEnumerable<User> GetAllUsersByName(string name);
     }
 }

@@ -1,0 +1,43 @@
+﻿@model UsersListViewModel
+@{
+    ViewData["Title"] = "Użytkownicy";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="get">
+    <div class="input-group mb-3">
+        <input type="search" class="form-control" placeholder="Wyszukaj po imieniu lub/i nazwisku" asp-for="SearchTerm">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+</form>
+
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Imię i nazwisko</th>
+            <th scope="col">Email</th>
+            <th scope="col">Wiek</th>
+            <th scope="col">Opcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.FirstName @user.LastName</td>
+                <td>@user.Email</td>
+                <td>@user.Age</td>
+                <td>
+                    <a asp-controller="Users" asp-action="Edit" asp-route-userId="@user.Id" class="btn btn-primary">
+                        Edytuj
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

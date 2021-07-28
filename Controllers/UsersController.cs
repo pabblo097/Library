@@ -26,7 +26,7 @@ namespace Library.Controllers
             return View();
         }
 
-        [Authorize(Roles ="Admin, Librarian")]
+        [Authorize(Roles = "Admin, Librarian")]
         public IActionResult ReservationRequestsAsync()
         {
             var reservationRequestsVm = new ReservationRequestsVm()
@@ -45,7 +45,7 @@ namespace Library.Controllers
             var reservationRequestsVm = new ReservationRequestsVm()
             {
                 Reservations = userService.GetAllReservationRequests()
-                .Where( x=> x.UserId == currentLoggedUser.Id).ToList()
+                .Where(x => x.UserId == currentLoggedUser.Id).ToList()
             };
 
             return View(reservationRequestsVm);
@@ -139,5 +139,16 @@ namespace Library.Controllers
         }
 
         private Task<User> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult List(string SearchTerm)
+        {
+            var usersListViewModel = new UsersListViewModel
+            {
+                Users = userService.GetAllUsersByName(SearchTerm)
+            };
+
+            return View(usersListViewModel);
+        }
     }
 }

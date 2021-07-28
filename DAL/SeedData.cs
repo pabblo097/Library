@@ -41,7 +41,7 @@ namespace Library.DAL
                 if (user == null)
                 {
                     await userManager.CreateAsync(defaultAdmin1, "123Pa$$word.");
-                    await userManager.AddToRoleAsync(defaultAdmin1, RoleValue.Librarian.ToString());
+                    await userManager.AddToRoleAsync(defaultAdmin1, RoleValue.Admin.ToString());
                 }
             }
         }

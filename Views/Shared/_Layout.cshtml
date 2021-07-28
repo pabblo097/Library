@@ -19,15 +19,26 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         @*<li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Books" asp-action="Index">Księgozbiór</a>
-                        </li>*@
-                        @if (User.IsInRole("Admin") || User.IsInRole("Librarian"))
+                                <a class="nav-link text-dark" asp-controller="Books" asp-action="Index">Księgozbiór</a>
+                            </li>*@
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Users" asp-action="ReservationRequests">Wypożyczenia użytkowników</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Users" asp-action="List">Użytkownicy</a>
+                            </li>
+
+                        }
+                        else if (User.IsInRole("Librarian"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Users" asp-action="ReservationRequests">Wypożyczenia użytkowników</a>
                             </li>
                         }
-                        @if (!User.IsInRole("User") && User.Identity.IsAuthenticated)
+                        else if (!User.IsInRole("User") && User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Users" asp-action="MyBooksData">Moje Wypożyczenia</a>
