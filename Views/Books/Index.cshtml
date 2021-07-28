@@ -15,7 +15,7 @@
 
 <form method="get">
     <div class="input-group mb-3">
-        <input type="search" class="form-control" placeholder="Wyszukaj po nazwie" aria-label="Search for restaurants" aria-describedby="basic-addon2" asp-for="SearchTerm">
+        <input type="search" class="form-control" placeholder="Wyszukaj po tytule" aria-label="Search for restaurants" aria-describedby="basic-addon2" asp-for="SearchTerm">
         <div class="input-group-append">
             <button class="btn btn-outline-secondary" type="submit">
                 <i class="fas fa-search"></i>
@@ -30,15 +30,17 @@
 {
     <div class="card mb-3">
         <div class="row g-0">
-            <div class="col-md-3 pr-md-0 pr-lg-3 d-flex flex-column justify-content-center">
-                @if (book.BookCover == null)
-                {
-                    <img id="BookCover" class="img-fluid rounded-start overflow-hidden" object-fit:cover" src="~/images/bookPlaceholder.png">
-                }
-                else
-                {
-                    <img id="BookCover" class="img-fluid rounded-start overflow-hidden" object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(book.BookCover))">
-                }
+            <div class="col-md-3 pr-md-0 pr-lg-3 d-flex flex-column justify-content-center align-items-center">
+                <a asp-controller="Books" asp-action="Details" asp-route-bookId="@book.Id" class="text-decoration-none">
+                    @if (book.BookCover == null)
+                    {
+                        <img id="BookCover" class="img-fluid rounded-start overflow-hidden" object-fit:cover" src="~/images/bookPlaceholder.png">
+                    }
+                    else
+                    {
+                        <img id="BookCover" class="img-fluid rounded-start overflow-hidden" style="width: 510px" object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(book.BookCover))">
+                    }
+                </a>
             </div>
             <div class="col-md-9 pl-md-0 pl-lg-3">
                 <div class="card-body">

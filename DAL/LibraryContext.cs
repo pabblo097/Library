@@ -1,18 +1,33 @@
 using Library.Models.DataModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing;
+using System.IO;
 
 namespace Library.DAL
 {
     public class LibraryContext : IdentityDbContext<User>
     {
-        public LibraryContext(DbContextOptions<LibraryContext> options) : base(options)
+        private readonly IWebHostEnvironment webHostEnvironment;
+
+        public LibraryContext(DbContextOptions<LibraryContext> options, IWebHostEnvironment webHostEnvironment)
+            : base(options)
         {
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         public DbSet<Book> Books { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
+
+        private byte[] ImgToByteArray(string imgName)
+        {
+            Image img = Image.FromFile($@"{webHostEnvironment.ContentRootPath}\wwwroot\images\{imgName}");
+            ImageConverter _imageConverter = new ImageConverter();
+            byte[] xByte = (byte[])_imageConverter.ConvertTo(img, typeof(byte[]));
+            return xByte;
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,7 +54,8 @@ namespace Library.DAL
                 Publisher = "Media Rodzina",
                 Year = 1997,
                 NumberOfPages = 328,
-                Count = 3
+                Count = 3,
+                BookCover = ImgToByteArray("hp1.jpg")
             });
 
             modelBuilder.Entity<Book>().HasData(new Book
@@ -53,7 +69,8 @@ namespace Library.DAL
                 Publisher = "Media Rodzina",
                 Year = 1998,
                 NumberOfPages = 368,
-                Count = 3
+                Count = 3,
+                BookCover = ImgToByteArray("hp2.jpg")
             });
 
             modelBuilder.Entity<Book>().HasData(new Book
@@ -67,7 +84,8 @@ namespace Library.DAL
                 Publisher = "Media Rodzina",
                 Year = 1999,
                 NumberOfPages = 450,
-                Count = 3
+                Count = 3,
+                BookCover = ImgToByteArray("hp3.jpg")
             });
 
             modelBuilder.Entity<Book>().HasData(new Book
@@ -81,7 +99,8 @@ namespace Library.DAL
                 Publisher = "Media Rodzina",
                 Year = 2000,
                 NumberOfPages = 768,
-                Count = 3
+                Count = 3,
+                BookCover = ImgToByteArray("hp4.jpg")
             });
 
             modelBuilder.Entity<Book>().HasData(new Book
@@ -95,7 +114,8 @@ namespace Library.DAL
                 Publisher = "Media Rodzina",
                 Year = 2003,
                 NumberOfPages = 960,
-                Count = 3
+                Count = 3,
+                BookCover = ImgToByteArray("hp5.jpg")
             });
 
             modelBuilder.Entity<Book>().HasData(new Book
@@ -109,7 +129,8 @@ namespace Library.DAL
                 Publisher = "Media Rodzina",
                 Year = 2005,
                 NumberOfPages = 704,
-                Count = 3
+                Count = 3,
+                BookCover = ImgToByteArray("hp6.jpg")
             });
 
             modelBuilder.Entity<Book>().HasData(new Book
@@ -123,7 +144,8 @@ namespace Library.DAL
                 Publisher = "Media Rodzina",
                 Year = 2007,
                 NumberOfPages = 782,
-                Count = 3
+                Count = 3,
+                BookCover = ImgToByteArray("hp7.jpg")
             });
 
             modelBuilder.Entity<Book>().HasData(new Book
@@ -137,7 +159,8 @@ namespace Library.DAL
                 Publisher = "Vis-á-Vis/Etiuda",
                 Year = 1949,
                 NumberOfPages = 240,
-                Count = 3
+                Count = 3,
+                BookCover = ImgToByteArray("1984.jpg")
             });
 
             modelBuilder.Entity<Book>().HasData(new Book
@@ -151,7 +174,8 @@ namespace Library.DAL
                 Publisher = "Œwiat Ksi¹¿ki",
                 Year = 2015,
                 NumberOfPages = 328,
-                Count = 3
+                Count = 3,
+                BookCover = ImgToByteArray("dzp.jpg")
             });
         }
     }

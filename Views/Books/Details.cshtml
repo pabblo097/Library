@@ -10,14 +10,14 @@
 
 <div class="card my-4 overflow-hidden">
     <div class="row g-0 border-bottom">
-        <div class="col-md-5 pr-md-0 d-flex flex-column justify-content-center">   
+        <div class="col-md-5 pr-md-0 d-flex flex-column justify-content-center">
             @if (Model.Book.BookCover == null)
             {
-            <img id="BookCover" class="img-fluid rounded-start overflow-hidden" object-fit:cover" src="~/images/bookPlaceholder.png">               
+                <img id="BookCover" class="img-fluid rounded-start overflow-hidden" object-fit:cover" src="~/images/bookPlaceholder.png">
             }
             else
             {
-        <img id="BookCover" class="img-fluid rounded-start overflow-hidden" object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.Book.BookCover))">
+                <img id="BookCover" class="img-fluid rounded-start overflow-hidden" object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.Book.BookCover))">
             }
         </div>
         <div class="col-md-7 pl-md-0 d-flex flex-column text-center text-md-left">
@@ -44,17 +44,20 @@
                     </li>
                 </ul>
             </div>
-            <div class="card-footer">
-                @if (!User.IsInRole("User") && User.Identity.IsAuthenticated)
-                {
-                <a class="btn btn-primary text-white" asp-action="ReservationRequest" asp-route-id="@Model.Book.Id">Zarezerwuj</a>
-                }
-                @if (User.IsInRole("Admin") || User.IsInRole("Librarian"))
-                {
+            @if (User.IsInRole("Admin") || User.IsInRole("Librarian"))
+            {
+                <div class="card-footer">
+                    <a class="btn btn-primary text-white" asp-action="ReservationRequest" asp-route-id="@Model.Book.Id">Zarezerwuj</a>
                     <a class="btn btn-primary text-white" asp-action="Edit" asp-route-id="@Model.Book.Id">Edytuj</a>
                     <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@Model.Book.Id">Usuń</a>
-                }
                 </div>
+            }
+            else if (!User.IsInRole("User") && User.Identity.IsAuthenticated)
+            {
+                <div class="card-footer">
+                    <a class="btn btn-primary text-white" asp-action="ReservationRequest" asp-route-id="@Model.Book.Id">Zarezerwuj</a>
+                </div>
+            }
         </div>
     </div>
     <div class="card-body">
