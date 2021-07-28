@@ -21,7 +21,8 @@ namespace Library.Services
 
         public IQueryable<Reservation> GetAllReservationRequests()
         {
-            return from r in dbContext.Reservations.Include(b => b.Book).Include(u => u.User)
+            return from r in dbContext.Reservations.OrderByDescending(x => (int)x.ReservationState).ThenBy(x => x.DateOfIssue)
+                   .Include(b => b.Book).Include(u => u.User)
                    select r;
         }
 
