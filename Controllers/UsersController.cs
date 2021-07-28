@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -43,9 +44,10 @@ namespace Library.Controllers
             var currentLoggedUser = await GetCurrentUser();
 
             var reservationRequestsVm = new ReservationRequestsVm()
-            {
+            {            
                 Reservations = userService.GetAllReservationRequests()
-                .Where( x=> x.UserId == currentLoggedUser.Id).ToList()
+                .Where(x => x.UserId == currentLoggedUser.Id).ToList()
+
             };
 
             return View(reservationRequestsVm);
@@ -128,7 +130,7 @@ namespace Library.Controllers
 
             userService.UpdateReservation(reservation);
 
-            return RedirectToAction("MyBooksData");
+            return RedirectToAction("ReservationRequests");
         }
 
         [HttpGet]
