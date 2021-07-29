@@ -163,7 +163,8 @@ namespace Library.Controllers
         public IActionResult DeleteConfirmed(int id)
         {
             var book = bookService.GetBookbyId(id);
-            bookService.DeleteBook(book);
+            bookService.DeleteReservations(book);
+            bookService.DeleteBook(book);       
 
             return RedirectToAction("Index");
         }

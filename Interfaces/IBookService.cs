@@ -13,6 +13,7 @@ namespace Library.Interfaces
         Book AddBook(Book book);
         Book EditBook(Book book);
         Reservation ReservationRequestService(Book book, User user);
+        void DeleteReservations(Book book);
         void DeleteBook(Book book);
     }
 }

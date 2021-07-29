@@ -52,6 +52,13 @@ namespace Library.Services
             dbContext.SaveChanges();
         }
 
+        public void DeleteReservations(Book book)
+        {
+            var reservations = dbContext.Reservations.Where(x => x.BookId == book.Id);
+            dbContext.Reservations.RemoveRange(reservations);
+            dbContext.SaveChanges();
+        }
+
         public Reservation ReservationRequestService(Book book, User user)
         {
             var reservation = new Reservation()

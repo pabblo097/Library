@@ -19,7 +19,7 @@ namespace Library.Models.DataModels
 
         [ForeignKey("User")]
         public string UserId { get; set; }
-
+        
         public virtual Book Book { get; set;  }
 
         [ForeignKey("Book")]

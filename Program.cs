@@ -30,6 +30,7 @@ namespace Library
                     await SeedData.SeedRolesAsync(userManager, roleManager);
                     await SeedData.SeedAdminAsync(userManager);
                     await SeedData.SeedLibrarianAsync(userManager);
+                    await SeedData.SeedStudentAsync(userManager);
                 }
                 catch (Exception ex)
                 {

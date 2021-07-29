@@ -46,11 +46,11 @@
             </div>
             @if (User.IsInRole("Admin") || User.IsInRole("Librarian"))
             {
-                <div class="card-footer">
-                    <a class="btn btn-primary text-white" asp-action="ReservationRequest" asp-route-id="@Model.Book.Id">Zarezerwuj</a>
-                    <a class="btn btn-primary text-white" asp-action="Edit" asp-route-id="@Model.Book.Id">Edytuj</a>
-                    <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@Model.Book.Id">Usuń</a>
-                </div>
+        <div class="card-footer">
+            <a class="btn btn-primary text-white" asp-action="ReservationRequest" asp-route-id="@Model.Book.Id">Zarezerwuj</a>
+            <a class="btn btn-primary text-white" asp-action="Edit" asp-route-id="@Model.Book.Id">Edytuj</a>
+            <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@Model.Book.Id">Usuń</a>
+        </div>
             }
             else if (!User.IsInRole("User") && User.Identity.IsAuthenticated)
             {

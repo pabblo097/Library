@@ -72,6 +72,33 @@ namespace Library.DAL
                 }
             }
         }
+
+        public static async Task SeedStudentAsync(UserManager<User> userManager)
+        {
+            //Seed Default User(Librarian)
+            var defaultStudent1 = new User
+            {
+                Id = "3d12b145-36d4-48df-b6ac-cd1be5077e06",
+                UserName = "student@gmail.com",
+                RegistrationDate = DateTime.Now,
+                Age = 21,
+                Email = "student@gmail.com",
+                FirstName = "Mateusz",
+                LastName = "Stanchły",
+                PhoneNumber = "+48987678874",
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true
+            };
+            if (userManager.Users.All(u => u.Id != defaultStudent1.Id))
+            {
+                var user = await userManager.FindByEmailAsync(defaultStudent1.Email);
+                if (user == null)
+                {
+                    await userManager.CreateAsync(defaultStudent1, "123Pa$$word.");
+                    await userManager.AddToRoleAsync(defaultStudent1, RoleValue.Student.ToString());
+                }
+            }
+        }
     }
 }
 

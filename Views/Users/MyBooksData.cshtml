@@ -6,47 +6,41 @@
 <div class="d-flex flex-row justify-content-between">
     <h1 class="mb-3">@ViewData["Title"]</h1>
 </div>
-<table class="table table-striped">
+<table class="table table-striped table-bordered table-hover">
     <thead>
         <tr>
-            <th>Tytuł książki</th>
-            <th>Data</th>
-            <th>Status</th>
-            <th></th>
+            <th scope="col">Tytuł książki</th>
+            <th scope="col">Data</th>
+            <th scope="col">Status</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.Reservations)
         {
-        <tr>
-            <td>@item.Book.Name</td>
-            <td>@item.DateOfIssue</td>
-            @if (@item.ReservationState == ReservationState.Pending)
-            {
-                <td>Oczekujący</td>
-                <td></td>
-            }
-            @if (@item.ReservationState == ReservationState.Rejected)
-            {
-        <td>Rezerwacja Odrzucona</td>
-                <td></td>
-            }
-            @if (@item.ReservationState == ReservationState.Accepted)
-            {
-        <td>Rezerwacja Zaakceptowana</td>
-                <td></td>
-            }
-            @if (@item.ReservationState == ReservationState.Borrowed)
-            {
-                <td>Wypożyczona</td>
-                <td></td>
-            }
-            @if (@item.ReservationState == ReservationState.Returned)
-            {
-                <td>Książka została oddana</td>
-                <td></td>
-            }
-        </tr>
+            <tr>
+                <td>@item.Book.Name</td>
+                <td>@item.DateOfIssue</td>
+                @if (@item.ReservationState == ReservationState.Pending)
+                {
+                    <td>Oczekujący</td>
+                }
+                @if (@item.ReservationState == ReservationState.Rejected)
+                {
+                    <td>Rezerwacja Odrzucona</td>
+                }
+                @if (@item.ReservationState == ReservationState.Accepted)
+                {
+                    <td>Rezerwacja Zaakceptowana</td>
+                }
+                @if (@item.ReservationState == ReservationState.Borrowed)
+                {
+                    <td>Wypożyczona</td>
+                }
+                @if (@item.ReservationState == ReservationState.Returned)
+                {
+                    <td>Książka została zwrócona</td>
+                }
+            </tr>
 
         }
     </tbody>

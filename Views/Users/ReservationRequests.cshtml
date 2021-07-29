@@ -68,7 +68,7 @@
                 @if (@item.ReservationState == ReservationState.Accepted)
                 {
                     <td>Rezerwacja Zaakceptowana</td>
-                    <td><a class="btn btn-primary text-white" asp-action="BookReturned" asp-route-id="@item.Id">Oddano</a></td>
+                    <td><a class="btn btn-primary text-white" asp-action="BookReturned" asp-route-id="@item.Id">Zwrócono</a></td>
                 }
                 @if (@item.ReservationState == ReservationState.Borrowed)
                 {
@@ -77,7 +77,7 @@
                 }
                 @if (@item.ReservationState == ReservationState.Returned)
                 {
-                    <td>Książka została oddana</td>
+                    <td>Książka została zwrócona</td>
                     <td></td>
                 }
             </tr>
