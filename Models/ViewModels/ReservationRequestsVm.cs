@@ -9,5 +9,6 @@ namespace Library.Models.ViewModels
     public class ReservationRequestsVm
     {
         public List<Reservation> Reservations { get; set; }
+        public string SearchTerm { get; set; }
     }
 }

@@ -28,24 +28,24 @@ namespace Library.Controllers
         }
 
         [Authorize(Roles = "Admin, Librarian")]
-        public IActionResult ReservationRequestsAsync()
+        public IActionResult ReservationRequestsAsync(string SearchTerm)
         {
             var reservationRequestsVm = new ReservationRequestsVm()
             {
-                Reservations = userService.GetAllReservationRequests().ToList()
+                Reservations = userService.GetAllReservationRequests(SearchTerm).ToList()
             };
 
             return View(reservationRequestsVm);
         }
 
         [Authorize]
-        public async Task<IActionResult> MyBooksData()
+        public async Task<IActionResult> MyBooksData(string searchTerm)
         {
             var currentLoggedUser = await GetCurrentUser();
 
             var reservationRequestsVm = new ReservationRequestsVm()
             {            
-                Reservations = userService.GetAllReservationRequests()
+                Reservations = userService.GetAllReservationRequests(searchTerm)
                 .Where(x => x.UserId == currentLoggedUser.Id).ToList()
 
             };
@@ -53,44 +53,44 @@ namespace Library.Controllers
             return View(reservationRequestsVm);
         }
 
-        public IActionResult PendingOnly()
+        public IActionResult PendingOnly(string searchTerm)
         {
             var reservationRequestsVm = new ReservationRequestsVm()
             {
-                Reservations = userService.GetAllReservationRequests()
+                Reservations = userService.GetAllReservationRequests(searchTerm)
                 .Where(x => x.ReservationState == ReservationState.Pending).ToList()
             };
 
             return View("ReservationRequests", reservationRequestsVm);
         }
 
-        public IActionResult RejectedOnly()
+        public IActionResult RejectedOnly(string searchTerm)
         {
             var reservationRequestsVm = new ReservationRequestsVm()
             {
-                Reservations = userService.GetAllReservationRequests()
+                Reservations = userService.GetAllReservationRequests(searchTerm)
                 .Where(x => x.ReservationState == ReservationState.Rejected).ToList()
             };
 
             return View("ReservationRequests", reservationRequestsVm);
         }
 
-        public IActionResult AcceptedOnly()
+        public IActionResult AcceptedOnly(string searchTerm)
         {
             var reservationRequestsVm = new ReservationRequestsVm()
             {
-                Reservations = userService.GetAllReservationRequests()
+                Reservations = userService.GetAllReservationRequests(searchTerm)
                 .Where(x => x.ReservationState == ReservationState.Accepted).ToList()
             };
 
             return View("ReservationRequests", reservationRequestsVm);
         }
 
-        public IActionResult ReturnedOnly()
+        public IActionResult ReturnedOnly(string searchTerm)
         {
             var reservationRequestsVm = new ReservationRequestsVm()
             {
-                Reservations = userService.GetAllReservationRequests()
+                Reservations = userService.GetAllReservationRequests(searchTerm)
                 .Where(x => x.ReservationState == ReservationState.Returned).ToList()
             };
 

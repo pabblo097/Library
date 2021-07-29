@@ -19,10 +19,12 @@ namespace Library.Services
             this.dbContext = dbContext;
         }
 
-        public IQueryable<Reservation> GetAllReservationRequests()
+        public IQueryable<Reservation> GetAllReservationRequests(string name)
         {
             return from r in dbContext.Reservations.OrderByDescending(x => (int)x.ReservationState).ThenBy(x => x.DateOfIssue)
-                   .Include(b => b.Book).Include(u => u.User)
+                   .Include(b => b.Book).Include(u => u.User) where string.IsNullOrEmpty(name)
+                   || string.Concat(r.User.FirstName, r.User.LastName)
+                   .ToLower().Contains(name.ToLower())
                    select r;
         }
 

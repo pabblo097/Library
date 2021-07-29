@@ -8,7 +8,7 @@ namespace Library.Interfaces
 {
     public interface IUserService
     {
-        IQueryable<Reservation> GetAllReservationRequests();
+        IQueryable<Reservation> GetAllReservationRequests(string searchTerm);
         Reservation GetReservationbyId(int id);
         Reservation UpdateReservation(Reservation reservation);
         IEnumerable<User> GetAllUsersByName(string name);

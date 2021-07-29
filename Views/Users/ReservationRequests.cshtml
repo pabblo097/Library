@@ -1,10 +1,22 @@
 ﻿@model ReservationRequestsVm
 @{
-    ViewData["Title"] = "Wypożyczenia/rezerwacje użytkowników biblioteki";
+    ViewData["Title"] = "Wypożyczenia/Rezerwacje";
 }
 
+<h1 class="mb-3">@ViewData["Title"]</h1>
+
+<form method="get">
+    <div class="input-group mb-3">
+        <input type="search" class="form-control" placeholder="Wyszukaj po imieniu lub/i nazwisku" asp-for="SearchTerm">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+</form>
+
 <div class="d-flex flex-row justify-content-between">
-    <h1 class="mb-3">@ViewData["Title"]</h1>
 </div>
 <td>
     <a class="btn btn-primary text-white" asp-action="ReservationRequests">Wszystkie</a>
@@ -21,54 +33,55 @@
 <td>
     <a class="btn btn-primary text-white" asp-action="ReturnedOnly">Zwrócone</a>
 </td>
-<table class="table table-striped">
+<table class="table table-striped table-bordered table-hover">
     <thead>
         <tr>
-            <th></th>
-            <th>Email</th>
-            <th>Tytuł książki</th>
-            <th>Data</th>
-            <th>Status</th>
-            <th>Zmień status</th>
+            <th scope="col"></th>
+            <th scope="col">Email</th>
+            <th scope="col">Tytuł książki</th>
+            <th scope="col">Data</th>
+            <th scope="col">Status</th>
+            <th scope="col">Zmień status</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.Reservations)
         {
-        <tr>
-            <td>@item.User.FirstName @item.User.LastName</td>
-            <td>@item.User.Email</td>
-            <td>@item.Book.Name</td>
-            <td>@item.DateOfIssue</td>
-            @if (@item.ReservationState == ReservationState.Pending)
-            {
-                <td>Oczekujący</td>
-                <td>
-                    <a class="btn btn-primary text-white" asp-action="ReservationConfirmed" asp-route-id="@item.Id">Zatwierdź</a>
-                    <a class="btn btn-primary text-white" asp-action="ReservationRejected" asp-route-id="@item.Id">Odrzuć</a>
-                </td>
-            }
-            @if (@item.ReservationState == ReservationState.Rejected)
-            {
-                <td>Rezerwacja Odrzucona</td>
-                <td></td>
-            }
-            @if (@item.ReservationState == ReservationState.Accepted)
-            {
-        <td>Rezerwacja Zaakceptowana</td>
-                <td><a class="btn btn-primary text-white" asp-action="BookReturned" asp-route-id="@item.Id">Oddano</a></td>
-            }
-            @if (@item.ReservationState == ReservationState.Borrowed)
-            {
-                <td>Wypożyczona</td>
-                <td></td>
-            }
-            @if (@item.ReservationState == ReservationState.Returned)
-            {
-                <td>Książka została oddana</td>
-                <td></td>
-            }
-        </tr>         
+            <tr>
+                <td>@item.User.FirstName @item.User.LastName</td>
+                <td>@item.User.Email</td>
+                <td>@item.Book.Name</td>
+                <td>@item.DateOfIssue</td>
+                @if (@item.ReservationState == ReservationState.Pending)
+                {
+                    <td>Oczekujący</td>
+                    <td>
+                        <a class="btn btn-primary text-white" asp-action="ReservationConfirmed" asp-route-id="@item.Id">Zatwierdź</a>
+                        <a class="btn btn-primary text-white" asp-action="ReservationRejected" asp-route-id="@item.Id">Odrzuć</a>
+                    </td>
+                }
+                @if (@item.ReservationState == ReservationState.Rejected)
+                {
+                    <td>Rezerwacja Odrzucona</td>
+                    <td></td>
+                }
+                @if (@item.ReservationState == ReservationState.Accepted)
+                {
+                    <td>Rezerwacja Zaakceptowana</td>
+                    <td><a class="btn btn-primary text-white" asp-action="BookReturned" asp-route-id="@item.Id">Oddano</a></td>
+                }
+                @if (@item.ReservationState == ReservationState.Borrowed)
+                {
+                    <td>Wypożyczona</td>
+                    <td></td>
+                }
+                @if (@item.ReservationState == ReservationState.Returned)
+                {
+                    <td>Książka została oddana</td>
+                    <td></td>
+                }
+            </tr>
+
         }
     </tbody>
 </table>
