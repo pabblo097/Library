@@ -3,6 +3,11 @@
     ViewData["Title"] = "Użytkownicy";
 }
 
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-danger">@TempData["Message"]</div>
+}
+
 <h1>@ViewData["Title"]</h1>
 
 <form method="get">

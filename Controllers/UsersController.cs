@@ -144,7 +144,7 @@ namespace Library.Controllers
 
         private Task<User> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Librarian")]
         public IActionResult List(string SearchTerm)
         {
             var usersListViewModel = new UsersListViewModel
@@ -160,7 +160,7 @@ namespace Library.Controllers
             return View(usersListViewModel);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Librarian")]
         public async Task<IActionResult> ChangeRole(string userId)
         {
             var user = await userManager.FindByIdAsync(userId);
@@ -193,11 +193,17 @@ namespace Library.Controllers
                 OldRole = oldRole
             };
 
+            if (User.IsInRole("Librarian") && (model.OldRole == "Admin" || model.OldRole == "Librarian"))
+            {
+                TempData["Message"] = "Nie masz uprawnień do zmiany roli tego uzytkownika";
+                return RedirectToAction("List");
+            }
+
             return View(model);
         }
 
         [HttpPost]
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin, Librarian")]
         public async Task<IActionResult> ChangeRole(UsersChangeRoleViewModel model)
         {
             var user = await userManager.FindByIdAsync(model.User.Id);

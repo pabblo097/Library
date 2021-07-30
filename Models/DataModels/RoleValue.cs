@@ -2,12 +2,12 @@
 {
     public enum RoleValue
     {
+        Admin,
+        Librarian,
         Student,
         Reader,
         Teacher,
-        User,
-        Librarian,
-        Admin
-        
+        User
+
     }
 }

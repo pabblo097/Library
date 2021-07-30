@@ -1,6 +1,8 @@
 ﻿@model UsersChangeRoleViewModel
 @{
     ViewData["Title"] = "Zmień role";
+    var admin = "Admin";
+    var librarian = "Librarian";
 }
 
 <h1>@ViewData["Title"] uzytkownika @Model.User.FirstName @Model.User.LastName</h1>
@@ -10,8 +12,16 @@
 <form method="post" asp-action="ChangeRole">
     <div class="form-group col-md-4">
         <label asp-for="NewRole">Zmień na</label>
-        <select class="form-control" asp-for="NewRole" asp-items="Html.GetEnumSelectList<RoleValue>()">
-        </select>
+        @if (User.IsInRole("Admin"))
+        {
+            <select class="form-control" asp-for="NewRole" asp-items="Html.GetEnumSelectList<RoleValue>()">
+            </select>
+        }
+        else
+        {
+            <select class="form-control" asp-for="NewRole" asp-items="Html.GetEnumSelectList<RoleValue>().Skip(2)">
+            </select>
+        }
     </div>
     <input type="hidden" asp-for="User.Id" />
 
