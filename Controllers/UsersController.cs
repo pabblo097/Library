@@ -14,12 +14,14 @@ namespace Library.Controllers
     public class UsersController : Controller
     {
         private readonly UserManager<User> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
         private readonly IUserService userService;
 
-        public UsersController(IUserService userService, UserManager<User> userManager)
+        public UsersController(IUserService userService, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             this.userService = userService;
             this.userManager = userManager;
+            this.roleManager = roleManager;
         }
 
         public IActionResult Index()
@@ -44,7 +46,7 @@ namespace Library.Controllers
             var currentLoggedUser = await GetCurrentUser();
 
             var reservationRequestsVm = new ReservationRequestsVm()
-            {            
+            {
                 Reservations = userService.GetAllReservationRequests(searchTerm)
                 .Where(x => x.UserId == currentLoggedUser.Id).ToList()
 
@@ -150,7 +152,78 @@ namespace Library.Controllers
                 Users = userService.GetAllUsersByName(SearchTerm)
             };
 
+            if (usersListViewModel.Users == null)
+            {
+                return RedirectToAction("Index", "Books");
+            }
+
             return View(usersListViewModel);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> ChangeRole(string userId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+            ViewBag.userId = userId;
+
+            if (user == null)
+            {
+                return RedirectToAction("List");
+            }
+
+            string oldRole = null;
+
+            foreach (var role in roleManager.Roles)
+            {
+                if (await userManager.IsInRoleAsync(user, role.Name))
+                {
+                    oldRole = role.Name;
+                    break;
+                }
+            }
+
+            if (string.IsNullOrEmpty(oldRole))
+            {
+                return RedirectToAction("List");
+            }
+
+            var model = new UsersChangeRoleViewModel
+            {
+                User = user,
+                OldRole = oldRole
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles ="Admin")]
+        public async Task<IActionResult> ChangeRole(UsersChangeRoleViewModel model)
+        {
+            var user = await userManager.FindByIdAsync(model.User.Id);
+
+            if (user == null)
+            {
+                return View("Error");
+            }
+
+            var roles = await userManager.GetRolesAsync(user);
+            var result = await userManager.RemoveFromRolesAsync(user, roles);
+            var newRole = model.NewRole.ToString();
+
+            if (!result.Succeeded)
+            {
+                return View(model);
+            }
+
+            result = await userManager.AddToRoleAsync(user, newRole);
+
+            if (!result.Succeeded)
+            {
+                return View(model);
+            }
+
+            return RedirectToAction("List");
         }
     }
 }

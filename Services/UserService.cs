@@ -22,9 +22,9 @@ namespace Library.Services
         public IQueryable<Reservation> GetAllReservationRequests(string name)
         {
             return from r in dbContext.Reservations.OrderByDescending(x => (int)x.ReservationState).ThenBy(x => x.DateOfIssue)
-                   .Include(b => b.Book).Include(u => u.User) where string.IsNullOrEmpty(name)
-                   || string.Concat(r.User.FirstName, r.User.LastName)
-                   .ToLower().Contains(name.ToLower())
+                   .Include(b => b.Book).Include(u => u.User)
+                   where string.IsNullOrEmpty(name) || string.Concat(r.User.FirstName, r.User.LastName)
+                    .ToLower().Contains(name.ToLower())
                    select r;
         }
 
@@ -39,6 +39,11 @@ namespace Library.Services
         public Reservation GetReservationbyId(int id)
         {
             return dbContext.Reservations.FirstOrDefault(b => b.Id == id);
+        }
+
+        public User GetUserById(string id)
+        {
+            return dbContext.Users.FirstOrDefault(u => u.Id == id);
         }
 
         public Reservation UpdateReservation(Reservation reservation)

@@ -12,5 +12,6 @@ namespace Library.Interfaces
         Reservation GetReservationbyId(int id);
         Reservation UpdateReservation(Reservation reservation);
         IEnumerable<User> GetAllUsersByName(string name);
+        User GetUserById(string id);
     }
 }
