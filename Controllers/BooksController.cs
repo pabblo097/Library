@@ -16,11 +16,13 @@ namespace Library.Controllers
     {
         private readonly IBookService bookService;
         private readonly UserManager<User> userManager;
+        private readonly LibraryContext dbContext;
 
-        public BooksController(IBookService bookService, UserManager<User> userManager)
+        public BooksController(IBookService bookService, UserManager<User> userManager, LibraryContext dbContext)
         {
             this.bookService = bookService;
             this.userManager = userManager;
+            this.dbContext = dbContext;
         }
 
         public IActionResult Index(string searchTerm)
@@ -51,7 +53,7 @@ namespace Library.Controllers
             return View(booksDetailsViewModel);
         }
 
-        [Authorize(Roles ="Admin, Librarian")]
+        [Authorize(Roles = "Admin, Librarian")]
         public IActionResult Add()
         {
             return View();
@@ -80,7 +82,7 @@ namespace Library.Controllers
             return View(book);
         }
 
-        [Authorize(Roles ="Librarian, Admin")]
+        [Authorize(Roles = "Librarian, Admin")]
         public IActionResult Edit(int id)
         {
             var book = bookService.GetBookbyId(id);
@@ -129,6 +131,7 @@ namespace Library.Controllers
         public async Task<IActionResult> ReservationRequest(int id)
         {
             var currentLoggedUser = await GetCurrentUser();
+            var userRoles = userManager.GetRolesAsync(currentLoggedUser);
             var book = bookService.GetBookbyId(id);
 
             if (book == null)
@@ -137,6 +140,22 @@ namespace Library.Controllers
             if (book.Count <= 0)
             {
                 TempData["AddMessage"] = "Obecnie książka jest niedostępna.";
+                return RedirectToAction("Details", new { bookId = book.Id });
+            }
+
+            int currentUserReservation = 0;
+
+            foreach (var reservation in dbContext.Reservations)
+            {
+                if (reservation.UserId == currentLoggedUser.Id && reservation.ReservationState.ToString() == "Pending")
+                {
+                    currentUserReservation++;
+                }
+            }
+
+            if (currentUserReservation >= currentLoggedUser.BooksLimit)
+            {
+                TempData["LimitMessage"] = "Przekroczyłeś limit wypożyczeń";
                 return RedirectToAction("Details", new { bookId = book.Id });
             }
 
@@ -164,7 +183,7 @@ namespace Library.Controllers
         {
             var book = bookService.GetBookbyId(id);
             bookService.DeleteReservations(book);
-            bookService.DeleteBook(book);       
+            bookService.DeleteBook(book);
 
             return RedirectToAction("Index");
         }

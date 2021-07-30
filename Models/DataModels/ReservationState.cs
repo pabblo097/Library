@@ -6,6 +6,6 @@
         Rejected,
         Borrowed,
         Accepted,
-        Pending,
+        Pending
     }
 }

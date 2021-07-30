@@ -8,6 +8,11 @@
     <div class="alert alert-info">@TempData["AddMessage"]</div>
 }
 
+@if (TempData["LimitMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["LimitMessage"]</div>
+}
+
 <div class="card my-4 overflow-hidden">
     <div class="row g-0 border-bottom">
         <div class="col-md-5 pr-md-0 d-flex flex-column justify-content-center">
@@ -46,11 +51,11 @@
             </div>
             @if (User.IsInRole("Admin") || User.IsInRole("Librarian"))
             {
-        <div class="card-footer">
-            <a class="btn btn-primary text-white" asp-action="ReservationRequest" asp-route-id="@Model.Book.Id">Zarezerwuj</a>
-            <a class="btn btn-primary text-white" asp-action="Edit" asp-route-id="@Model.Book.Id">Edytuj</a>
-            <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@Model.Book.Id">Usuń</a>
-        </div>
+                <div class="card-footer">
+                    <a class="btn btn-primary text-white" asp-action="ReservationRequest" asp-route-id="@Model.Book.Id">Zarezerwuj</a>
+                    <a class="btn btn-primary text-white" asp-action="Edit" asp-route-id="@Model.Book.Id">Edytuj</a>
+                    <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@Model.Book.Id">Usuń</a>
+                </div>
             }
             else if (!User.IsInRole("User") && User.Identity.IsAuthenticated)
             {

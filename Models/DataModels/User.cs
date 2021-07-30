@@ -8,17 +8,18 @@ using System.Threading.Tasks;
 
 namespace Library.Models.DataModels
 {
-    public class User: IdentityUser
+    public class User : IdentityUser
     {
         [Required]
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
         public int Age { get; set; }
-        public DateTime? RegistrationDate { get; set;  }
+        public DateTime? RegistrationDate { get; set; }
 
         public virtual IList<Reservation> Reservations { get; set; }
 
         public string Index { get; set; }
+        public int BooksLimit { get; } = 5;
     }
 }
